@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/*.js"
+  to = "/:splat"
+  content_type = "text/javascript"
+  status = 200
