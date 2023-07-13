@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { FidgetSpinner } from "react-loader-spinner";
 
-import { TweetCard } from "../components/TweetCard";
 import { handlePagination } from "../services/handlePagination";
 import { fetchUsers } from "../services/fetchAPI";
-import { useNavigate } from "react-router-dom";
+import { TweetCard } from "../components/TweetCard";
 
 export const TweetsPage = () => {
   const [data, setData] = useState([]);
@@ -72,7 +72,7 @@ export const TweetsPage = () => {
           backgroundColor="#5736a3"
         />
       )}
-      <GoBackBtn onClick={goBack}>Back</GoBackBtn>
+      {!isLoading && <GoBackBtn onClick={goBack}>Back</GoBackBtn>}
       {dataToRender.length > 0 && (
         <TweetsList ref={tweetsListRef}>
           {dataToRender.map(({ id, name, avatar, followers, tweets }) => (

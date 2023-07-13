@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+
 import topimage from "../images/topimage.png";
 import { fetchFollowTweet } from "../services/fetchAPI";
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 
 export const TweetCard = ({ id, avatar, followers, tweets }) => {
   const [following, setFollowing] = useState(false);

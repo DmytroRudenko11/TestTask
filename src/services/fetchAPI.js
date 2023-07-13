@@ -33,8 +33,9 @@ export const fetchFollowTweet = async (id, followers, signal) => {
     }
     if (error.name === "CanceledError") {
       throw error;
+    } else {
+      console.log(error);
+      toast.error("Sorry, smth went wrong");
     }
-
-    toast.error("Sorry, smth went wrong");
   }
 };
