@@ -7,6 +7,7 @@ import { FidgetSpinner } from "react-loader-spinner";
 import { handlePagination } from "../services/handlePagination";
 import { fetchUsers } from "../services/fetchAPI";
 import { TweetCard } from "../components/TweetCard";
+import { DropdownFilter } from "../components/DropdownFilter";
 
 export const TweetsPage = () => {
   const [data, setData] = useState([]);
@@ -72,7 +73,13 @@ export const TweetsPage = () => {
           backgroundColor="#5736a3"
         />
       )}
-      {!isLoading && <GoBackBtn onClick={goBack}>Back</GoBackBtn>}
+      {!isLoading && (
+        <ButtonBar>
+          <GoBackBtn onClick={goBack}>Back</GoBackBtn>
+          <DropdownFilter />
+        </ButtonBar>
+      )}
+
       {dataToRender.length > 0 && (
         <TweetsList ref={tweetsListRef}>
           {dataToRender.map(({ id, name, avatar, followers, tweets }) => (
@@ -98,11 +105,57 @@ export const TweetsPage = () => {
 
 const TweetsSection = styled.section`
   position: relative;
-  padding-top: 70px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+const ButtonBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+`;
+
+const GoBackBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 50px;
+
+  color: #5736a3;
+  background-color: #e3ca3f;
+
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+  -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+  box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+
+  &:hover {
+    background-color: #fcd929;
+  }
+`;
+
+const LoadMoreBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150x;
+  height: 50px;
+
+  color: #5736a3;
+  background-color: #e3ca3f;
+
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+  -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+  box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+
+  &:hover {
+    background-color: #fcd929;
+  }
 `;
 
 const TweetsList = styled.ul`
@@ -113,49 +166,4 @@ const TweetsList = styled.ul`
   flex-wrap: wrap;
   row-gap: 40px;
   column-gap: 20px;
-`;
-
-const LoadMoreBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150x;
-  height: 50px;
-  margin-top: 30px;
-
-  color: #5736a3;
-  background-color: #e3ca3f;
-
-  border-radius: 8px;
-  -webkit-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
-  -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
-  box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
-
-  &:hover {
-    background-color: #fcd929;
-  }
-`;
-
-const GoBackBtn = styled.button`
-  position: absolute;
-  top: 15px;
-  left: 23px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 50px;
-
-  color: #5736a3;
-  background-color: #e3ca3f;
-
-  border-radius: 8px;
-  -webkit-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
-  -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
-  box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
-
-  &:hover {
-    background-color: #fcd929;
-  }
 `;
