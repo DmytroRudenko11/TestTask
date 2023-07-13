@@ -33,7 +33,6 @@ export const TweetsPage = () => {
 
   useEffect(() => {
     const filteredData = filterTweets(filterOption, data);
-    console.log(filteredData);
     const { paginatedData, totalPages } = handlePagination(
       filteredData,
       page,
