@@ -11,9 +11,11 @@ export const TweetCard = ({ id, avatar, followers, tweets }) => {
   const [controller, setController] = useState(null);
 
   useEffect(() => {
-    const isFollowing = localStorage.getItem(`following_${id}`);
-    if (isFollowing === "true") {
-      setFollowing(true);
+    const storedData = localStorage.getItem("following");
+    if (storedData) {
+      const followingData = JSON.parse(storedData);
+      const isFollowed = followingData.includes(id);
+      setFollowing(isFollowed);
     }
 
     return () => {
@@ -32,16 +34,19 @@ export const TweetCard = ({ id, avatar, followers, tweets }) => {
     setController(newController);
 
     let request;
+    const existingData = localStorage.getItem("following");
+    let followingData = existingData ? JSON.parse(existingData) : [];
     if (!following) {
       request = updFollowers + 1;
       setFollowing(true);
-      localStorage.setItem(`following_${id}`, "true");
-    }
-    if (following) {
+      followingData = [id, ...followingData];
+    } else {
       request = updFollowers - 1;
       setFollowing(false);
-      localStorage.removeItem(`following_${id}`);
+      followingData = followingData.filter((itemId) => itemId !== id);
     }
+    localStorage.setItem("following", JSON.stringify(followingData));
+
     try {
       const updUser = await fetchFollowTweet(id, request, newController.signal);
       setUpdFollowers(updUser.followers);

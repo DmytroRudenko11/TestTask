@@ -7,7 +7,7 @@ export const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = () => {
-    const topOffset = window.pageYOffset || document.documentElement.scrollTop;
+    const topOffset = window.scrollY || document.documentElement.scrollTop;
     setIsVisible(topOffset > 300);
   };
 
@@ -29,7 +29,7 @@ export const ScrollToTopButton = () => {
     <ButtonWrapper>
       {isVisible && (
         <Button onClick={scrollToTop}>
-          <IconContext.Provider value={{ color: "#5736a3", size: "24px" }}>
+          <IconContext.Provider value={{ color: "#5736a3", size: "28px" }}>
             <FaArrowUp />
           </IconContext.Provider>
         </Button>
@@ -46,10 +46,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  padding-left: 9px;
+  padding: 13px;
 
   background-color: #e3ca3f;
   -webkit-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { BiFilterAlt, BiSolidFilterAlt } from "react-icons/bi";
 
-const options = ["By Tweets", "By Followers", "You are following"];
+const options = ["All tweets", "Not followed", "Followed by you"];
 
-export const DropdownFilter = () => {
+export const DropdownFilter = ({ filterHandler }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -12,6 +13,7 @@ export const DropdownFilter = () => {
 
   const onOptionClicked = (value) => () => {
     setSelectedOption(value);
+    filterHandler(value);
     setIsOpen(false);
   };
 
@@ -34,6 +36,10 @@ export const DropdownFilter = () => {
       )}
     </DropDownContainer>
   );
+};
+
+DropdownFilter.propTypes = {
+  filterHandler: PropTypes.func.isRequired,
 };
 
 const DropDownContainer = styled.div``;

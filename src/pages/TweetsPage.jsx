@@ -8,10 +8,13 @@ import { handlePagination } from "../services/handlePagination";
 import { fetchUsers } from "../services/fetchAPI";
 import { TweetCard } from "../components/TweetCard";
 import { DropdownFilter } from "../components/DropdownFilter";
+import { filterTweets } from "../services/filterTweets";
+import { NothingFound } from "../components/NothingFound";
 
 export const TweetsPage = () => {
   const [data, setData] = useState([]);
   const [dataToRender, setDataToRender] = useState([]);
+  const [filterOption, setFilterOption] = useState("");
   const [loadMore, setLoadMore] = useState(true);
   const [page, setPage] = useState(1);
   const [limit] = useState(3);
@@ -29,16 +32,23 @@ export const TweetsPage = () => {
   }, []);
 
   useEffect(() => {
-    const { paginatedData, totalPages } = handlePagination(data, page, limit);
+    const filteredData = filterTweets(filterOption, data);
+    console.log(filteredData);
+    const { paginatedData, totalPages } = handlePagination(
+      filteredData,
+      page,
+      limit
+    );
+    setLoadMore(true);
     setDataToRender((prev) => [...prev, ...paginatedData]);
 
     if (page === totalPages) {
       setLoadMore(false);
-      toast.info("You riched the last page of tweets");
+      if (totalPages !== 1) toast.info("You riched the last page of tweets");
     }
     handleScrollToBottom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, data]);
+  }, [page, data, filterOption]);
 
   useEffect(() => {
     handleScrollToBottom();
@@ -62,6 +72,12 @@ export const TweetsPage = () => {
     setPage((prev) => prev + 1);
   };
 
+  const filterHandler = (option) => {
+    setFilterOption(option);
+    setDataToRender([]);
+    setPage(1);
+  };
+
   return (
     <TweetsSection>
       {isLoading && (
@@ -76,10 +92,10 @@ export const TweetsPage = () => {
       {!isLoading && (
         <ButtonBar>
           <GoBackBtn onClick={goBack}>Back</GoBackBtn>
-          <DropdownFilter />
+          <DropdownFilter filterHandler={filterHandler} />
         </ButtonBar>
       )}
-
+      {dataToRender.length === 0 && !isLoading && <NothingFound />}
       {dataToRender.length > 0 && (
         <TweetsList ref={tweetsListRef}>
           {dataToRender.map(({ id, name, avatar, followers, tweets }) => (
@@ -94,8 +110,13 @@ export const TweetsPage = () => {
           ))}
         </TweetsList>
       )}
-      {!isLoading && loadMore && (
-        <LoadMoreBtn onClick={pageHandler} type="button">
+      {!isLoading && loadMore && dataToRender.length > 0 && (
+        <LoadMoreBtn
+          onClick={() => {
+            pageHandler();
+          }}
+          type="button"
+        >
           Load more
         </LoadMoreBtn>
       )}
@@ -104,6 +125,7 @@ export const TweetsPage = () => {
 };
 
 const TweetsSection = styled.section`
+  width: 100%;
   position: relative;
   padding-top: 50px;
   display: flex;
