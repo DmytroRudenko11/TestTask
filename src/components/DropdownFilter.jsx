@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+
 import { BiFilterAlt, BiSolidFilterAlt } from "react-icons/bi";
 
 const options = ["All tweets", "Not followed", "Followed by you"];
@@ -65,7 +66,7 @@ const DropDownHeader = styled.div`
   font-size: 21px;
 
   cursor: pointer;
-
+  transition: all 250ms linear;
   &:hover {
     background-color: #fcd929;
   }

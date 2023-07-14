@@ -47,7 +47,10 @@ const StyledLink = styled(NavLink)`
   -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
   box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
 
+  transition: all 250ms linear;
+
   &:hover {
     background-color: #fcd929;
+    transform: scale(1.05);
   }
 `;

@@ -6,6 +6,7 @@ import { FidgetSpinner } from "react-loader-spinner";
 
 import { handlePagination } from "../services/handlePagination";
 import { fetchUsers } from "../services/fetchAPI";
+
 import { TweetCard } from "../components/TweetCard";
 import { DropdownFilter } from "../components/DropdownFilter";
 import { filterTweets } from "../services/filterTweets";
@@ -154,8 +155,11 @@ const GoBackBtn = styled.button`
   -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
   box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
 
+  transition: all 250ms linear;
+
   &:hover {
     background-color: #fcd929;
+    transform: scale(1.05);
   }
 `;
 
@@ -173,9 +177,11 @@ const LoadMoreBtn = styled.button`
   -webkit-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
   -moz-box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
   box-shadow: 0px 1px 8px 4px rgba(190, 164, 210, 1);
+  transition: all 250ms linear;
 
   &:hover {
     background-color: #fcd929;
+    transform: scale(1.05);
   }
 `;
 

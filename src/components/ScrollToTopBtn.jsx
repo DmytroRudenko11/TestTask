@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+
 import { FaArrowUp } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 
@@ -59,7 +60,7 @@ const Button = styled.button`
   cursor: pointer;
   border: none;
   outline: none;
-
+  transition: all 250ms linear;
   &:hover {
     background-color: #fcd929;
   }

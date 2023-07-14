@@ -168,4 +168,10 @@ const Btn = styled.button`
   border-radius: 10px;
   box-shadow: 0px 3.4369285106658936px 3.4369285106658936px 0px
     rgba(0, 0, 0, 0.25);
+
+  transition: all 250ms linear;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
